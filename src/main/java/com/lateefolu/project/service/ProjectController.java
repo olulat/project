@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
+@Transactional
 @RequestMapping("/project")
 public class ProjectController {
     private final ProjectService projectService;
@@ -38,6 +40,12 @@ public class ProjectController {
     public ResponseEntity<Project> updateProject(@RequestBody Project project){
         Project updateProject = projectService.addProject(project);
         return new ResponseEntity<>(updateProject, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Long id){
+       projectService.deleteProject(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
