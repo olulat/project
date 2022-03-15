@@ -30,5 +30,9 @@ public class ProjectService {
                 () ->new  ProjectNotFoundException("Project with " + projectCode + " was not found" ));
     }
 
+    public  Project updateProject(Project project){
+        return projectRepo.save(project);
+    }
+
 
 }

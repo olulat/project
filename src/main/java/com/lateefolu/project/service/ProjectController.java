@@ -33,4 +33,11 @@ public class ProjectController {
         Project project = projectService.findProjectByProjectCode(projectCode);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Project> updateProject(@RequestBody Project project){
+        Project updateProject = projectService.addProject(project);
+        return new ResponseEntity<>(updateProject, HttpStatus.OK);
+    }
+
 }
