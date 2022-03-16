@@ -1,6 +1,9 @@
 package com.lateefolu.project.service;
 
 import com.lateefolu.project.model.Project;
+import io.swagger.v3.oas.annotations.Operation;
+import net.bytebuddy.build.Plugin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.List;
 @Transactional
 @RequestMapping("/project")
 public class ProjectController {
+
     private final ProjectService projectService;
 
     public ProjectController(ProjectService projectService) {
@@ -19,6 +23,7 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
+    @Operation(summary="Add project With Unique code")
     public ResponseEntity<Project> addProject(@RequestBody Project project){
         Project newProject = projectService.addProject(project);
         return new ResponseEntity<>(newProject, HttpStatus.CREATED);
@@ -31,6 +36,7 @@ public class ProjectController {
     }
 
     @GetMapping("/find/{projectCode}")
+    @Operation(summary="Get project using project code")
     public ResponseEntity<Project> getProjectByCode(@PathVariable("projectCode") String projectCode){
         Project project = projectService.findProjectByProjectCode(projectCode);
         return new ResponseEntity<>(project, HttpStatus.OK);
